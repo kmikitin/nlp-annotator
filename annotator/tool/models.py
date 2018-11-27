@@ -1,3 +1,6 @@
 from django.db import models
 
-# Create your models here.
+class Annotation(models.Model):
+    text = models.TextField('Document Text')
+    file_name = models.CharField('File Name', blank=True)
+    entities = models.ManytoManyField(Entity, )
