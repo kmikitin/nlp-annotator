@@ -11,6 +11,7 @@ from tika import parser
 from django.shortcuts import render, redirect
 from django import forms
 from django.views.generic.edit import CreateView
+from django.views.generic.list import ListView
 
 from .models import Annotation, Entity
 
@@ -22,7 +23,6 @@ class AnnotationCreateForm(forms.ModelForm):
 
 
 class AnnotationCreateView(CreateView):
-    template = 'annotation_create.html'
     model = Annotation
     form_class = AnnotationCreateForm
 
@@ -88,6 +88,13 @@ class AnnotationCreateView(CreateView):
 
         return redirect('new_annotation')
 
+class AnnotationListView(ListView):
+    model = Annotation
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['annotations'] = Annotation.objects.all()
+        return context
 
 
 

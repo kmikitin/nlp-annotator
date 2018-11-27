@@ -1,0 +1,39 @@
+{% extends "base_site.html" %}
+
+{% block title%}Annotations{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row row-border">
+        <div class="col-md-12">
+            <section>
+                <h1><small>Annotations</small></h1>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-column-id="id" data-identifier="true" data-visible="false">#</th>
+                                <th scope="col" data-column-id="file_name" data-order="desc" data-align="left">File Name</th>
+                            </tr> 
+                        </thead>
+                        <tbody>
+                            {% for annotation in annotations %}
+                                <tr>
+                                    <td>{{ annotation.id }}</td>
+                                    <td>{{ annotation.file_name }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+<script type="text/javascript">
+    console.log('hello world')
+    console.log({{ annotations }})
+</script>
