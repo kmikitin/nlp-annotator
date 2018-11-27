@@ -1,6 +1,17 @@
 from django.contrib import admin
 from .models import Annotation, Entity
 
+class Entity_Admin(admin.ModelAdmin):
+    fieldsets = (
+        (None, {
+            'fields': (
+                ('start', 'end'),
+                ('phrase', 'entity_type')
+            )}),
+    )
+
+    list_display = ('phrase', 'entity_type',)
+
 class Annotation_Admin(admin.ModelAdmin):
     fieldsets = (
         (None, {
@@ -15,4 +26,4 @@ class Annotation_Admin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(Annotation, Annotation_Admin)
-admin.site.register(Entity)
+admin.site.register(Entity, Entity_Admin)
