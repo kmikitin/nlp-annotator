@@ -16,7 +16,10 @@ class Entity(models.Model):
 
 
 class Annotation(models.Model):
-    text = models.TextField('Document Text', help_text='Should be one long string of parsed text')
+    text = models.TextField('Document Text', blank=True, help_text='Should be one long string of parsed text')
     file_name = models.CharField('File Name', blank=True, null=True, max_length=500)
     file = models.FileField(upload_to='uploads/')
     entities = models.ManyToManyField(Entity, blank=True, verbose_name='Entities')
+
+    def __str__(self):
+        return '{}'.format(self.file_name)
