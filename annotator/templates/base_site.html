@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load i18n staticfiles %}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width"> 
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="#">Annotations</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'new_annotation'%}">Add</a>
+        </li>
+    </ul>
+</nav>
+
+{% if form.errors %}
+    <div class="alert alert-danger pull-left">
+        We found {{ form.errors|pluralize:"a,some" }} mistake{{ form.errors|pluralize }} in your form.
+    </div>
+{% endif %}
+
+{% block content %}
+{% endblock %}
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
