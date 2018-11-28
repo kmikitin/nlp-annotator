@@ -10,6 +10,7 @@ from tika import parser
 
 from django.shortcuts import render, redirect
 from django import forms
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 
@@ -94,6 +95,14 @@ class AnnotationListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['annotations'] = Annotation.objects.all()
+        return context
+
+class AnnotationDetailView(DetailView):
+    model = Annotation
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['annotation'] = kwargs['object']
         return context
 
 
