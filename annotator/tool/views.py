@@ -10,13 +10,11 @@ from tika import parser
 
 from django.shortcuts import render, redirect
 from django import forms
-from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView
-from django.views.generic.list import ListView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from .models import Annotation, Entity
 
-# Create your views here.
+
 class AnnotationCreateForm(forms.ModelForm):
     class Meta:
         model = Annotation
@@ -87,7 +85,8 @@ class AnnotationCreateView(CreateView):
         else:
             return render(request, self.template, form)
 
-        return redirect('new_annotation')
+        return redirect('detail_annotation', pk=annotation.pk)
+
 
 class AnnotationListView(ListView):
     model = Annotation
@@ -96,6 +95,7 @@ class AnnotationListView(ListView):
         context = super().get_context_data(**kwargs)
         context['annotations'] = Annotation.objects.all()
         return context
+
 
 class AnnotationDetailView(DetailView):
     model = Annotation
@@ -106,7 +106,8 @@ class AnnotationDetailView(DetailView):
         return context
 
 
-
+class AnnotationAnnotateView(UpdateView):
+    model = Annotation
 
 
 

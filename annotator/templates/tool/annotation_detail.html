@@ -4,6 +4,46 @@
 
 {% block content %}
 <div class="container">
-    <h1>{{ annotation.file_name }}</h1>
+    <h1><small>{{ annotation.file_name }}</small></h1>
+    <div>
+        <button class="btn btn-primary" type="button" id="text-button">View Parsed Text</button>
+        <button class="btn btn-primary" type="button" id="ent-button">View Entities List</button>
+        <a class="btn btn-warning" role="button" href="#">Edit</a>
+        <a class="btn btn-danger" role="button" href="#">Delete</a>
+        <a class="btn btn-success float-right" role="button"href="{% url 'annotate' annotation.pk%}">Annotate!</a>
+    </div>
+    <div class="collapse" id="text">
+        <div class="card card-body">
+            {{ annotation.text }}
+        </div>
+    </div>
+    <div class="collapse" id="ent">
+        <div class="card card-body">
+            <ul class="list-group list-group-flush">
+                {% for entity in annotation.entities.all %}
+                    <li class="list-group-item">{{entity.phrase}}, {{entity.entity_type}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 </div>
 {% endblock %}
+
+{% block extra_js %}
+<!-- jQuery isn't inherited for some reason? Will worry about this later -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#text-button").on('click', function(){
+            $("#text").toggleClass('collapse collapse.show')
+            $("#ent").removeClass('collapse.show').addClass('collapse')
+        });
+
+        $('#ent-button').on('click', () => {
+            $("#ent").toggleClass('collapse collapse.show')
+            $("#text").removeClass('collapse.show').addClass('collapse')
+        });
+    });
+</script>
+{% endblock extra_js %}
