@@ -34,14 +34,11 @@
 <!-- jQuery isn't inherited for some reason? Will worry about this later -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
-    console.log('hello world');
-
     // jQuery to handle the onclick functionality of the rows
     $(document).ready(function(){
         $(".clickable-row").on('click', function(){
             window.location = $(this).data("href");
         })
     });
-
 </script>
 {% endblock %}
