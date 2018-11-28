@@ -12,14 +12,12 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th scope="col" data-column-id="id" data-identifier="true" data-visible="false">#</th>
                                 <th scope="col" data-column-id="file_name" data-order="desc" data-align="left">File Name</th>
                             </tr> 
                         </thead>
                         <tbody>
                             {% for annotation in annotations %}
-                                <tr>
-                                    <td>{{ annotation.id }}</td>
+                                <tr class="clickable-row" data-href="{% url 'detail_annotation' annotation.pk %}">
                                     <td>{{ annotation.file_name }}</td>
                                 </tr>
                             {% endfor %}
@@ -32,8 +30,18 @@
 </div>
 {% endblock %}
 
-
+{% block extra_js %}
+<!-- jQuery isn't inherited for some reason? Will worry about this later -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
-    console.log('hello world')
-    console.log({{ annotations }})
+    console.log('hello world');
+
+    // jQuery to handle the onclick functionality of the rows
+    $(document).ready(function(){
+        $(".clickable-row").on('click', function(){
+            window.location = $(this).data("href");
+        })
+    });
+
 </script>
+{% endblock %}
