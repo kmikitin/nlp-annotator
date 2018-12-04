@@ -12,7 +12,7 @@ from django.shortcuts import render, redirect
 from django import forms
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from .models import Annotation, Entity
+from .models import Annotation, Entity, Label
 
 
 class AnnotationCreateForm(forms.ModelForm):
@@ -29,6 +29,9 @@ class AnnotationCreateView(CreateView):
         ent_list = []
         for num, word in enumerate(words):
             entity = Entity()
+
+            label = Label.objects.get(name=label)
+
             entity.start = word.start()
             entity.end = word.end()
             entity.phrase = word.group()
@@ -39,7 +42,7 @@ class AnnotationCreateView(CreateView):
         return ent_list
 
     def get_annotations(self, file):
-        nlp = spacy.load('en')
+        nlp = spacy.load('en_core_web_lg')
         parsed = parser.from_file('../media/' + file)
         
         try:
@@ -48,7 +51,9 @@ class AnnotationCreateView(CreateView):
 
             for ent in doc.ents:
                 entity = Entity()
-                entity.entity_type = ent.label_
+                label = Label.objects.get(name=ent.label_)
+                print(label)
+                entity.entity_type = label
                 entity.phrase = ent.text 
                 entity.start = ent.start_char
                 entity.end = ent.end_char
