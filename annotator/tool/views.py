@@ -25,6 +25,7 @@ class AnnotationCreateView(CreateView):
     model = Annotation
     form_class = AnnotationCreateForm
 
+
     def create_entities(self, label, words):
         ent_list = []
         for num, word in enumerate(words):
