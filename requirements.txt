@@ -11,7 +11,7 @@ cytoolz==0.9.0.1
 decorator==4.3.0
 defusedxml==0.5.0
 dill==0.2.8.2
-Django==2.1.15
+Django==2.2.10
 django-appconf==1.0.2
 django-compressor==2.2
 docx2txt==0.6
